@@ -1,0 +1,22 @@
+---
+- hosts: webserver
+  become: yes
+  vars:
+    package_name: httpd
+  tasks:
+  - name: message
+    debug:
+      msg: "identified package for installing apache is {{ package_name }}"
+      verbosity: 0
+  - name: install apache
+    package:
+      name: "{{ package_name }}"
+      state: present
+  - debug:
+     msg: "installd Apache"
+  - name: install utility
+    package:
+      name: "{{ utility_package }}"
+      state: present
+  - debug:
+      msg: "installed {{ utility_package }}"

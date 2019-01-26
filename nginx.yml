@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: "installing nginx"
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes
+  handlers:
+  - name: resart nginx again
+    service:
+      name: nginx
+      state: restarted

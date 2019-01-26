@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: update packages and install apache
+      apt:
+        name: apache2
+        update_cache: yes
+        state: present
+      notify: 
+      - restart apache2
+      when: ansible_os_family=="debian" 
+    - name: install php packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+      - php
+      - libapache2-mod-php
+      - php-mcrypt
+      - php-mysql
+      notify:
+      - restart apache2
+      when: ansible_os_family=="debian"
+      handlers:
+      - name: restart apache after  
+        service:
+          name: apache2
+          enabled: yes
+          state: restarted

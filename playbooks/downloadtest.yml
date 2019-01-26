@@ -1,0 +1,20 @@
+---
+- hosts: webserver
+  become: yes
+  vars:
+    url: https://s3.amazonaws.com/jenkins.aws.com/waste.html
+    dest: /home/ansible/waste.html
+  tasks:
+  - name: download file
+    get_url:
+      url: "{{ url }}"
+      dest: "{{ destination }}"
+  - debug:
+      msg: "downloaded file from {{ url }} to {{ destination }}"
+      verbosity: 0
+  - name: Reading content by linux command
+  - command: cat "{{ destination}}"
+    register: dest_content
+  - debug:
+      msg: "content is {{ dest_content }}"
+      verbosity: 0

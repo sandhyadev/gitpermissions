@@ -1,0 +1,10 @@
+[ubuntu]
+localhost
+172.31.19.60
+
+[RedHat]
+172.31.30.164
+
+[webserver]
+localhost
+
